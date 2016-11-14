@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
     private int counter = 0;
     private ListView listView;
 
-    public static int [] prgmImages={R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher};
-    public static String [] prgmNameList={"Let Us C","c++","JAVA","Jsp","Microsoft .Net"};
+    public static int [] prgmImages={R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher};
+    public static String [] prgmNameList={"Let Us C","c++","JAVA","Jsp","Microsoft .Net","Android","PHP","Jquery","JavaScript"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
