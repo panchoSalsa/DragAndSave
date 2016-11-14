@@ -12,6 +12,13 @@
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_launcher"/>
 
+    <ListView
+        android:layout_below="@id/image1"
+        android:id="@+id/list"
+        android:layout_height="300dp"
+        android:layout_width="match_parent">
+    </ListView>
+
     <TextView android:text="Save" android:layout_width="wrap_content"
         android:id="@+id/save"
         android:layout_height="wrap_content"

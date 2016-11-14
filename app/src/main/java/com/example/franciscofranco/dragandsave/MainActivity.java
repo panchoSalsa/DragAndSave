@@ -8,6 +8,7 @@ import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,11 +16,58 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtView;
     private TextView txtCounter;
     private int counter = 0;
+    private ListView listView;
+
+    public static int [] prgmImages={R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher};
+    public static String [] prgmNameList={"Let Us C","c++","JAVA","Jsp","Microsoft .Net"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        listView = (ListView) findViewById(R.id.list);
+
+
+
+        String[] values = new String[] { "Android List View",
+                "Adapter implementation",
+                "Simple List View In Android",
+                "Create List View Android",
+                "Android Example",
+                "List View Source Code",
+                "List View Array Adapter",
+                "Android Example List View"
+        };
+
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+
+        listView.setAdapter(new CustomAdapter(this, prgmNameList, prgmImages));
+
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view,
+//                                    int position, long id) {
+//
+//                view.setOnTouchListener(new MyTouchListener());
+//                //(TextView )view.findViewById(R.id.textView1)
+//
+//                // ListView Clicked item index
+//                int itemPosition = position;
+//
+//                // ListView Clicked item value
+//                String itemValue = (String) listView.getItemAtPosition(position);
+//
+//                // Show Alert
+//                Toast.makeText(getApplicationContext(),
+//                        "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
+//                        .show();
+//
+//            }
+//
+//        });
 
         imgView = (ImageView) findViewById(R.id.image1);
         imgView.setOnTouchListener(new MyTouchListener());
@@ -29,13 +77,13 @@ public class MainActivity extends AppCompatActivity {
         txtCounter.setText("Items saved " + counter);
     }
 
-    private final class MyTouchListener implements View.OnTouchListener {
+    public final class MyTouchListener implements View.OnTouchListener {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 txtView.setText("Drop to Save");
                 ClipData data = ClipData.newPlainText("", "");
                 View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(
-                        view);
+                        (ImageView) view.findViewById(R.id.imageView1));
                 view.startDrag(data, shadowBuilder, view, 0);
                 //view.setVisibility(View.INVISIBLE);
                 return true;
