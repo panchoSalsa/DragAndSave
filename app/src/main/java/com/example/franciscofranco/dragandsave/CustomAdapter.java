@@ -2,6 +2,7 @@ package com.example.franciscofranco.dragandsave;
 
 import android.content.ClipData;
 import android.content.Context;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,12 +20,14 @@ public class CustomAdapter extends BaseAdapter {
     Context context;
     int [] imageId;
     private static LayoutInflater inflater=null;
+    public TextView txtView;
 
-    public CustomAdapter(MainActivity mainActivity, String[] prgmNameList, int[] prgmImages) {
+    public CustomAdapter(MainActivity mainActivity, String[] prgmNameList, int[] prgmImages, View txtView) {
         // TODO Auto-generated constructor stub
         result=prgmNameList;
         context=mainActivity;
         imageId=prgmImages;
+        this.txtView = (TextView) txtView;
         inflater = ( LayoutInflater )context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -77,6 +80,12 @@ public class CustomAdapter extends BaseAdapter {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 //MainActivity.txtView.setText("Drop to Save");
+
+                Vibrator vb = (Vibrator)  context.getSystemService(Context.VIBRATOR_SERVICE);
+                vb.vibrate(100);
+
+                txtView.setText("Drop to Save");
+
                 ClipData data = ClipData.newPlainText("", "");
 //                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(
 //                        (ImageView) view.findViewById(R.id.imageView1));

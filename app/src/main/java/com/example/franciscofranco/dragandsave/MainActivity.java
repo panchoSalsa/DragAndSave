@@ -1,8 +1,10 @@
 package com.example.franciscofranco.dragandsave;
 
 import android.content.ClipData;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.DragEvent;
 import android.view.MotionEvent;
@@ -43,7 +45,14 @@ public class MainActivity extends AppCompatActivity {
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 //                android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
-        listView.setAdapter(new CustomAdapter(this, prgmNameList, prgmImages));
+        imgView = (ImageView) findViewById(R.id.image1);
+        imgView.setOnTouchListener(new MyTouchListener());
+        txtView = (TextView) findViewById(R.id.save);
+        txtView.setOnDragListener(new MyDragListener());
+        txtCounter = (TextView) findViewById(R.id.txtCounter);
+        txtCounter.setText("Items saved " + counter);
+
+        listView.setAdapter(new CustomAdapter(this, prgmNameList, prgmImages, txtView));
 
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //
@@ -69,17 +78,12 @@ public class MainActivity extends AppCompatActivity {
 //
 //        });
 
-        imgView = (ImageView) findViewById(R.id.image1);
-        imgView.setOnTouchListener(new MyTouchListener());
-        txtView = (TextView) findViewById(R.id.save);
-        txtView.setOnDragListener(new MyDragListener());
-        txtCounter = (TextView) findViewById(R.id.txtCounter);
-        txtCounter.setText("Items saved " + counter);
     }
 
     public final class MyTouchListener implements View.OnTouchListener {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+
                 txtView.setText("Drop to Save");
                 ClipData data = ClipData.newPlainText("", "");
                 View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(
@@ -106,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case DragEvent.ACTION_DRAG_ENTERED:
                     v.setBackgroundDrawable(enterShape);
+                    Vibrator vb = (Vibrator)  getSystemService(Context.VIBRATOR_SERVICE);
+                    vb.vibrate(100);
                     break;
                 case DragEvent.ACTION_DRAG_EXITED:
                     v.setBackgroundDrawable(normalShape);
@@ -126,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
                     v.setBackgroundDrawable(normalShape);
+                    txtView.setText("Save");
                 default:
                     break;
             }
